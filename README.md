@@ -1,12 +1,28 @@
-# DOB BIN Auto-Fill
+# Auto-fill DOB BIN 🚀
 
-This userscript automatically fills the BIN number on the NYC DOB Now website using the value saved in localStorage from your site.
+Automatically inserts the BIN value from the URL and triggers a search on the [NYC DOB NOW](https://a810-dobnow.nyc.gov/publish/Index.html) website.
 
-## 🛠️ Installation
+---
 
-1. Install [Tampermonkey](https://www.tampermonkey.net/) in your browser.
-2. Click the link below to install the script:
+## 🧩 Version
 
-   👉 [Install Auto-fill DOB BIN Script](https://raw.githubusercontent.com/oleglyba/dob-bin-autofill/main/user.js)
+**v1.1** — Updated to use `bin` from URL instead of localStorage
 
-3. In the Tampermonkey popup, click **Install**.
+---
+
+## 🔍 Features
+
+- Automatically detects and clicks the **BIN** button
+- Extracts BIN from URL parameter (e.g., `#/?bin=3322374`)
+- Fills in the input and triggers the **Search** action
+- Fully hands-free once URL is prepared
+
+---
+
+## 🛠 Installation
+
+1. Install the [Tampermonkey](https://www.tampermonkey.net/) extension for Chrome/Firefox.
+2. Install this script from GreasyFork:
+
+   👉 [Install Auto-fill DOB BIN](https://greasyfork.org/scripts/540501-auto-fill-dob-bin)
+

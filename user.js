@@ -1,25 +1,26 @@
 // ==UserScript==
 // @name         Auto-fill DOB BIN
 // @namespace    http://tampermonkey.net/
-// @version      1.0
-// @description  Automatically inserts BIN from localStorage and triggers search on DOB website
-// @author       oleglyba
+// @version      1.1
+// @description  Auto insert BIN from URL parameter
+// @author       You
 // @match        https://a810-dobnow.nyc.gov/publish/Index.html*
 // @grant        none
+// @license      MIT
 // ==/UserScript==
 
 (function () {
-    console.log("[TM] 🚀 Starting BIN autofill automation");
+    console.log("[TM] 🚀 Початок автоматизації BIN");
 
     const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
 
     const clickBinSearch = async () => {
-        console.log("[TM] ⏳ Waiting for BIN button");
+        console.log('[TM] ⏳ Очікуємо кнопку BIN');
 
-        const waitForBinButton = () => new Promise((resolve) => {
+        const waitForBinButton = () => new Promise(resolve => {
             const check = setInterval(() => {
-                const btn = Array.from(document.querySelectorAll("div")).find(
-                    (el) => el.textContent.trim() === "BIN"
+                const btn = Array.from(document.querySelectorAll('div')).find(
+                    el => el.textContent.trim() === 'BIN'
                 );
                 if (btn) {
                     clearInterval(check);
@@ -29,20 +30,22 @@
         });
 
         const binBtn = await waitForBinButton();
-        console.log("[TM] ✅ BIN button found");
+        console.log('[TM] ✅ Знайдено кнопку BIN');
         binBtn.click();
     };
 
     const fillBin = async () => {
         await sleep(1500);
-        const bin = localStorage.getItem("tm_bin");
+
+        const urlParams = new URLSearchParams(window.location.hash.split('?')[1]);
+        const bin = urlParams.get("bin");
 
         if (!bin) {
-            console.warn("[TM] ❌ BIN not found in localStorage");
+            console.warn("[TM] ❌ BIN не знайдено в URL");
             return;
         }
 
-        console.log("[TM] 🧠 BIN found:", bin);
+        console.log("[TM] 🧠 BIN знайдено в URL:", bin);
 
         const input = document.querySelector("input[placeholder='Enter BIN']");
         if (input) {
@@ -55,7 +58,7 @@
             );
 
             if (searchBtn) {
-                console.log("[TM] 🔍 Clicking Search");
+                console.log("[TM] 🔍 Натискаємо Search");
                 searchBtn.click();
             }
         }
